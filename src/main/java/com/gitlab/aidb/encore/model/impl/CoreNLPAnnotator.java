@@ -71,7 +71,7 @@ public class CoreNLPAnnotator implements NLPAnnotator {
         );
     }
 
-    private static POSType convertPos(String pos) {
+    static POSType convertPos(String pos) {
         if (pos == null || pos.length() < 1) {
             return POSType.None;
         }
@@ -81,7 +81,7 @@ public class CoreNLPAnnotator implements NLPAnnotator {
         return POSType.Other;
     }
 
-    private static NamedEntityType convertNe(String ne) {
+    static NamedEntityType convertNe(String ne) {
         if (ne == null || ne.length() < 1) {
             return NamedEntityType.None;
         }

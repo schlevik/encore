@@ -15,11 +15,11 @@ public class EnCoreTest {
 
     @BeforeClass
     public void beforeClass() {
-        encore = new EnCore();
+        encore = new EnCore(true);
     }
 
 
-    @Test(invocationCount = 10, dataProvider = "texts", dataProviderClass = EnCoreTest.class)
+    @Test(invocationCount = 1, dataProvider = "texts", dataProviderClass = EnCoreTest.class)
     public void test(String input, String expected) {
         System.out.println("RUNNING");
         Assert.assertEquals(encore.resolveCoreference(input), expected);
@@ -36,10 +36,25 @@ public class EnCoreTest {
         String shortExpected = IOUtils.toString(is, "utf-8");
         is = ClassLoader.getSystemResourceAsStream("short.input.txt");
         String shortInput = IOUtils.toString(is, "utf-8");
+        is = ClassLoader.getSystemResourceAsStream("shorter.expected.txt");
+        String shorterExpected = IOUtils.toString(is, "utf-8");
+        is = ClassLoader.getSystemResourceAsStream("shorter.input.txt");
+        String shorterInput = IOUtils.toString(is, "utf-8");
+
         IOUtils.closeQuietly(is);
         Object[][] result = {
-                {shortInput, String.join(" ", Arrays.asList(shortExpected.split("\n")))},
-                {obamaInput, String.join(" ", Arrays.asList(obamaExpected.split("\n")))}
+                {
+                        String.join(" ", Arrays.asList(shortInput.split("\n"))),
+                        String.join(" ", Arrays.asList(shortExpected.split("\n")))
+                },
+                {
+                        String.join(" ", Arrays.asList(obamaInput.split("\n"))),
+                        String.join(" ", Arrays.asList(obamaExpected.split("\n")))
+                },
+                {
+                        String.join(" ", Arrays.asList(shorterInput.split("\n"))),
+                        String.join(" ", Arrays.asList(shorterExpected.split("\n")))
+                },
         };
 
 

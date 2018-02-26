@@ -10,7 +10,7 @@ public abstract class Reference {
     private List<Token> tokens;
     private String text;
 
-    public Reference(int sentenceIndex, List tokens) {
+    public Reference(int sentenceIndex, List<Token> tokens) {
         this.sentenceIndex = sentenceIndex;
         this.tokens = tokens;
         this.text = getTokens()

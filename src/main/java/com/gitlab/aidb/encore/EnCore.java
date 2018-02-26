@@ -5,6 +5,7 @@ import com.gitlab.aidb.encore.model.ReferenceResolver;
 import com.gitlab.aidb.encore.features.definition.FeatureProvider;
 import com.gitlab.aidb.encore.features.definition.FeatureProviderHandler;
 import com.gitlab.aidb.encore.model.impl.CoreNLPAnnotator;
+import com.gitlab.aidb.encore.model.impl.FasterCoreNLPAnnotator;
 import com.gitlab.aidb.encore.model.impl.resolvers.NameReferenceResolver;
 import com.gitlab.aidb.encore.model.impl.resolvers.PronominalReferenceResolver;
 import com.gitlab.aidb.encore.model.references.Reference;
@@ -31,12 +32,17 @@ public class EnCore implements FeatureProviderHandler {
     private NLPAnnotator annotator;
 
 
-    public EnCore() {
+    public EnCore(boolean fast) {
 
         logger.debug(marker, "Creating EnCore instance...");
-        annotator = new CoreNLPAnnotator();
+        annotator = fast ? new FasterCoreNLPAnnotator() : new CoreNLPAnnotator();
 
     }
+
+    public EnCore() {
+        this(false);
+    }
+
 
     private void initialize() {
         //TODO: read from config or sth
